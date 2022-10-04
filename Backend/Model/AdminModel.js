@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 
 
 const AdminSchema=new mongoose.Schema({
+  
+   
    AdminEmail:{
     type:String,
     required:true,
@@ -14,7 +16,7 @@ const AdminSchema=new mongoose.Schema({
     trim: true,
     unique: true,
    },
-   
+    
    AdminAccessRoles:{
         type:mongoose.Schema.Types.ObjectId,
         required: true,
@@ -45,10 +47,18 @@ Admin_dateFormat:{
     required:true,
 },
 
- subcription_Status:{
-    type:Boolean,
-    default:false,
- }
+Subcribe_packages:[{
+    type:mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref:"SubscriptionPackage" 
+}],
+
+site_storage_limit:{
+    type:String,
+    required:true,
+   }
+
+
 
  
 },)

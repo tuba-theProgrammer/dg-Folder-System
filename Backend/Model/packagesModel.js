@@ -26,12 +26,28 @@ package_price:{
 subcriptionType:{
     type:String,
     required:true,
-}
+},
 
+subcription_Status:{
+    type:Boolean,
+    default:false,
+ },
+
+subcription_expire_date:{
+    type:String,
+    required:true, 
+},
+
+ package_bill:{
+    type:String,
+    required:true,
+ },
+
+ 
 
 })
 
 
 
-const package_schema = mongoose.model("package", PackageSchema);
+const package_schema = mongoose.model("SubscriptionPackage", PackageSchema);
 module.exports={ package_schema}
