@@ -46,7 +46,21 @@ const AdminSignIn = async (req,res)=>{
 
 const AdminCreateAccount = async (req,res)=>{
     const {AdminEmail,AdminPass,Admin_Display_name} = req.body 
-    
+    console.log('Account Create Data', req.body)
+    try{
+
+        const AdminAccount=await Admin_schema.create({AdminEmail,AdminPass,Admin_Display_name})
+        res.status(200).send({
+             status:1,
+             data:AdminAccount,
+             message:"Account created successfully"
+            })
+
+    }
+    catch(error){
+        res.send(error.message)
+    }
+
 }
 
 const AdminSelfUpdateSettings = async (req,res)=>{
