@@ -49,7 +49,7 @@ const SiteCreateAccount = async (req,res)=>{
     console.log('Site Account Create Data', req.body)
     try{
 
-        const SiteAccount=await Admin_schema.create({sitename,site_email,site_username,site_pass,site_storage_limit})
+        const SiteAccount=await Site_schema.create({sitename,site_email,site_username,site_pass,site_storage_limit})
         res.status(200).send({
              status:1,
              data:SiteAccount,
@@ -110,7 +110,7 @@ else{
 }
 
 const ViewAllSites = async (req,res)=>{
-    const AllSiteData =  await Admin_schema.find();
+    const AllSiteData =  await Site_schema.find();
     console.log(AllSiteData)
     res.status(200).send(
         AllSiteData) 
@@ -119,15 +119,8 @@ const ViewAllSites = async (req,res)=>{
 
 }
 
-const DeleteSiteAccount = async (req,res)=>{
-    const {SiteId}=req.body;
-    console.log(SiteId)
-  
-    await Site_schema.findOneAndRemove(AdminId)
-    const SiteData=await Site_schema.find()
-    res.status(200).send(
-        SiteData
-    )
+const setSiteStatus = async (req,res)=>{
+   
 }
 
 const SiteResetPass = async (req,res)=>{
@@ -136,7 +129,7 @@ const SiteResetPass = async (req,res)=>{
 
 
 
-module.exports = {SiteSignIn,SiteCreateAccount,DeleteSiteAccount,SiteSelfUpdateSettings,EditSite,ViewOneSite,ViewAllSites,SiteResetPass}
+module.exports = {SiteSignIn,SiteCreateAccount,setSiteStatus,SiteSelfUpdateSettings,EditSite,ViewOneSite,ViewAllSites,SiteResetPass}
 
 
 

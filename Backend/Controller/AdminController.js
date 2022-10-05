@@ -67,6 +67,10 @@ const AdminSelfUpdateSettings = async (req,res)=>{
    
 }
 
+const EditAdminAccount= async (req,res)=>{
+   
+}
+
 const ViewOneAdmin = async (req,res)=>{
     const {AdminId} = req.body
     if(AdminId.length>0){
@@ -132,7 +136,7 @@ const AdminResetPass = async (req,res)=>{
 
 
 
-module.exports = {AdminSignIn,AdminCreateAccount,AdminSelfUpdateSettings,ViewOneAdmin,ViewAllAdmins,DeleteAdminAccount,AdminResetPass}
+module.exports = {AdminSignIn,AdminCreateAccount,EditAdminAccount,AdminSelfUpdateSettings,ViewOneAdmin,ViewAllAdmins,DeleteAdminAccount,AdminResetPass}
 
 
 
