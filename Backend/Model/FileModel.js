@@ -1,25 +1,25 @@
 const mongoose = require("mongoose")
 
-const FolderSchema= new mongoose.Schema({
+const FileSchema= new mongoose.Schema({
    
   
 
-    FolderName:{
+    FileName:{
         type:String,
         required:true,
     },
     
-    FolderSize:{
+    FileSize:{
         type:String,
         required:true,
     },
 
-    FolderOwner:{
+    FileOwner:{
         type:String,
         required:true,
     },
     
-    Folder_createdDate:{
+    File_createdDate:{
         type:String,
         required:true,
     },
@@ -50,38 +50,10 @@ const FolderSchema= new mongoose.Schema({
   PermissibleInheritance:{
         type:Boolean,
         default:true,
-  },
-  
+  }
 
-  ListOfFiles:[{
-    type:mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref:"Files" 
-  }],
+})
 
-  AccessRights:{
-    type:String,
-    default:"read",
-  },
-
-  Folder_ipAddress:{
-    type:String,
-  },
-   
-  Folder_activityDate:{
-    type : Date, 
-    default: Date.now 
-  },
-
-  
-
-
-},
-{
-    timestamps:true
-}
-)
-
-const Folder_schema = mongoose.model("Folders", FolderSchema);
-module.exports={Folder_schema}
+const File_schema = mongoose.model("Files", FileSchema);
+module.exports={File_schema}
 

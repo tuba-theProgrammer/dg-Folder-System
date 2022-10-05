@@ -38,8 +38,32 @@ const SubdomainSchema=new mongoose.Schema({
     default:true,
    },
 
+   TimeOfLogout:{
+    type : Date, 
+    default: Date.now 
+   
+ },
 
 
+ TimeOfLogin:{
+    type : Date, 
+    default: Date.now 
+
+ },
+
+
+ ListOfGroups:[{
+    type:mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref:"Groups" 
+ }],
+
+
+ ListOfUsers:[{
+    type:mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref:"Users" 
+ }]
 
 })
 

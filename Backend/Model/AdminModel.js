@@ -77,7 +77,19 @@ Subcribe_packages:[{
   },
    
 
+  TimeOfLogin:{
+    type : Date, 
+    default: Date.now 
 
+ },
+
+ TimeOfLogout:{
+    type : Date, 
+    default: Date.now 
+
+ },
+  
+  
  
 },)
 

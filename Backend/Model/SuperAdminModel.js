@@ -42,7 +42,11 @@ const SuperAdminSchema=new mongoose.Schema({
         ref:"Admin" 
     }],
    
+    TimeOfLogin:{
+        type : Date, 
+        default: Date.now 
 
+     },
 },
 
 
