@@ -6,8 +6,8 @@ const cors = require("cors");
 app.use(cors());
 var mongoose = require('mongoose')
 
-// const authRoute = require('./Routes/AuthRoute')
-// app.use('/api',authRoute)
+ const adminRoute = require('./Routes/AdminRoutes')
+ app.use('/adminApi',adminRoute)
 
 
 app.get('/', (req, res) => {
@@ -22,5 +22,5 @@ mongoose.connect(MONGODB, /*We place this to remove warning*/{ useNewUrlParser:
 
 
 app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`)
+  console.log(`gd Folder System listening on port ${PORT}`)
 })
