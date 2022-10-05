@@ -28,6 +28,11 @@ const AdminSchema=new mongoose.Schema({
     required:true, 
 },
 
+  Admin_StorageLimit:{
+    type:String,
+    required:true, 
+  },
+
 Admin_langauge:{
     type:String,
     default:"English"

@@ -3,16 +3,10 @@ const mongoose = require("mongoose");
 const SubdomainSchema=new mongoose.Schema({
    sitename:{
     type:String,
-    unique:true,
     required:true, 
    },
    
-   owner_name:{
-    type:String,
-    required:true, 
-   },
-
-   owner_email:{
+   site_email:{
     type:String,
     required:true, 
    },
@@ -20,6 +14,7 @@ const SubdomainSchema=new mongoose.Schema({
    site_username:{
     type:String,
     required:true,
+    unique:true,
    },
 
    site_pass:{

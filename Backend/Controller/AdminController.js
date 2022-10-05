@@ -45,11 +45,11 @@ const AdminSignIn = async (req,res)=>{
 }
 
 const AdminCreateAccount = async (req,res)=>{
-    const {AdminEmail,AdminPass,Admin_Display_name} = req.body 
+    const {AdminEmail,AdminPass,Admin_Display_name,Admin_StorageLimit} = req.body 
     console.log('Account Create Data', req.body)
     try{
 
-        const AdminAccount=await Admin_schema.create({AdminEmail,AdminPass,Admin_Display_name})
+        const AdminAccount=await Admin_schema.create({AdminEmail,AdminPass,Admin_Display_name,Admin_StorageLimit})
         res.status(200).send({
              status:1,
              data:AdminAccount,
@@ -119,7 +119,7 @@ const DeleteAdminAccount = async (req,res)=>{
     const {AdminId}=req.body;
     console.log(AdminId)
   
-    await admin_schema.findOneAndDelete(AdminId)
+    await admin_schema.findOneAndRemove(AdminId)
     const AdminData=await auth_schema.find()
     res.status(200).send(
         AdminData
