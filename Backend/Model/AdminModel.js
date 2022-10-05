@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 
 const AdminSchema=new mongoose.Schema({
   
-   
    AdminEmail:{
     type:String,
     required:true,
@@ -31,16 +30,17 @@ const AdminSchema=new mongoose.Schema({
 
 Admin_langauge:{
     type:String,
-    required:true,
+    default:"English"
 },
 
 Admin_timeZone:{
-    type:String,
-    required:true,
+    type:Date,
+    default: Date.now
+  
 },
 Admin_timeFormat:{
     type:String,
-    required:true,
+    
 },
  
 Admin_dateFormat:{
