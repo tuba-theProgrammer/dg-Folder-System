@@ -30,7 +30,14 @@ const SubdomainSchema=new mongoose.Schema({
    site_storage_limit:{
     type:String,
     required:true,
-   }
+
+   },
+
+   site_status:{
+     type:Boolean,
+    default:true,
+   },
+
 
 
 
@@ -38,5 +45,5 @@ const SubdomainSchema=new mongoose.Schema({
 
 
 
-const subdomain_schema = mongoose.model("SubdomainPackage", SubdomainSchema);
+const subdomain_schema = mongoose.model("Subdomain_site", SubdomainSchema);
 module.exports={ subdomain_schema}

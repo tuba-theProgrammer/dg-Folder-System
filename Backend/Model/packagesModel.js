@@ -38,12 +38,14 @@ subcription_expire_date:{
     required:true, 
 },
 
- package_bill:{
+subcription_renew_date:{
     type:String,
-    required:true,
- },
+    required:true, 
+},
 
  
+
+
 
 })
 

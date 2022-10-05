@@ -10,6 +10,7 @@ const AdminSchema=new mongoose.Schema({
     trim: true,
     unique: true,
    },
+
    AdminPass:{
     type:String,
     required:true,
@@ -53,11 +54,28 @@ Subcribe_packages:[{
     ref:"SubscriptionPackage" 
 }],
 
-site_storage_limit:{
-    type:String,
-    required:true,
-   }
 
+  
+   ManageBanners:[{
+    type:mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref:"Banner" 
+}],
+
+
+  ListOfProduct:[{
+    type:mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref:"Products" 
+  }],
+   
+
+  BrandAndTheme:{
+    type:mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref:"Brand_and_theme" 
+  },
+   
 
 
  
