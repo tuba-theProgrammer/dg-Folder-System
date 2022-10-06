@@ -4,21 +4,20 @@ const BannerSchema= mongoose.Schema({
     
     bannerTitle:{
         type:String,
-         
     },
 
     bannerImage:{
         type:String,
-        required:true, 
+        default:'',
     },
 
     bannerVideo:{
         type:String,
-        required:true, 
+        default:'',
     },
     bannerDescription:{
         type:String,
-        required:true, 
+        default:'',
     },
 
 

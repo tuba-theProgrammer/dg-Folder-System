@@ -10,5 +10,6 @@ app.post('/EditAdmin',AdminController.EditAdminAccount)
 app.get('/DisplayAllAdmin',AdminController.ViewAllAdmins)
 app.get('/DisplayOneAdmin',AdminController.ViewOneAdmin)
 app.get('/ResetPass',AdminController.AdminResetPass)
+app.get('/SetNewPass',AdminController.AdminChangePassword)
 
 module.exports= app

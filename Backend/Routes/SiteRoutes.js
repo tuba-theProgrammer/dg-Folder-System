@@ -10,5 +10,7 @@ app.post('/SelfUpdateSite',SiteController.SiteSelfUpdateSettings)
 app.get('/DisplayAllSite',SiteController.ViewAllSites)
 app.get('/DisplayOneSite',SiteController.ViewOneSite)
 app.get('/ResetPass',SiteController.SiteResetPass)
+app.get('/setNewPass',SiteController.SiteChangePassword)
+
 
 module.exports= app

@@ -2,13 +2,13 @@ const mongoose = require("mongoose");
 
 
 const SuperAdminSchema=new mongoose.Schema({
-    AdminEmail:{
+    SuperAdminEmail:{
         type:String,
         required:true,
         trim: true,
         unique: true,
     },
-    AdminPass:{
+    SuperAdminPass:{
         type:String,
         required:true
     },

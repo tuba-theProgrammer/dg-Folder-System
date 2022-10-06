@@ -19,7 +19,6 @@ const AdminSchema=new mongoose.Schema({
     
    AdminAccessRoles:{
         type:mongoose.Schema.Types.ObjectId,
-        default: () => ({}),
         ref:"AccessRequest" 
    },
    
@@ -55,7 +54,6 @@ Admin_dateFormat:{
 
 Subcribe_packages:[{
     type:mongoose.Schema.Types.ObjectId,
-    default: () => ({}),
     ref:"SubscriptionPackage" 
 }],
 
@@ -63,21 +61,18 @@ Subcribe_packages:[{
   
    ManageBanners:[{
     type:mongoose.Schema.Types.ObjectId,
-    default: () => ({}),
     ref:"Banner" 
 }],
 
 
   ListOfProduct:[{
     type:mongoose.Schema.Types.ObjectId,
-    default: () => ({}),
     ref:"Products" 
   }],
    
 
   BrandAndTheme:{
     type:mongoose.Schema.Types.ObjectId,
-    default: () => ({}),
     ref:"Brand_and_theme" 
   },
    
@@ -94,9 +89,7 @@ Subcribe_packages:[{
 
  },
  
-},{
-    timestamps: true,
-},)
+})
 
 const Admin_schema = mongoose.model("Admin", AdminSchema);
 module.exports={ Admin_schema}

@@ -25,7 +25,7 @@ const UserSchema= new mongoose.Schema({
     },
 
      Access_expirationDate:{
-        typ0e:Date,
+        type:Date,
         required:true,
      },
      
@@ -42,34 +42,34 @@ const UserSchema= new mongoose.Schema({
 
     
      User_last_login:{
-        type:String,
+        type:Date,
+        default:Date.now
+
      },
 
      AccessedFolders:[{
         type:mongoose.Schema.Types.ObjectId,
-        required: true,
         ref:"Folders" 
      }],
 
      User_langauge:{
         type:String,
-        required:true,
+        default:"English"
     },
     
     User_timeZone:{
         type:String,
-        required:true,
+        default: Date.now
     },
     User_timeFormat:{
         type:String,
-        required:true,
+        default:() => new Date(+new Date() + 7*24*60*60*1000)
     },
      
     User_dateFormat:{
         type:String,
-        required:true,
+        default:"YYYY-MM-DD hh:mm:ss"
     },
-
 
 })
 
