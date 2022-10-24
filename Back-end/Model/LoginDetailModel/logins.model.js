@@ -17,14 +17,52 @@ const LoginDetailsSchema=new mongoose.Schema({
         required:true,
        },
    
-    LogUserId:{
+       LogUserId:{
+        type:String,
+        required:true,
+       },
+
+       Folder_ID:{
+        type:String,
+        required:true,
+       },
+    
+    totalStorage:{
+        type:String,
+        required:true,
+    },
+    usedStorage:{
+        type:String,
+        required:true,
+    },
+
+    timeZone:{
+        type:String,
+        required:true,
+    },
+
+    timeFormate:{
+        type:String,
+        required:true,
+    },
+    dateFormate:{
         type:String,
         required:true,
     }
       
+},{
+    timestamps:true
 })
 
 
-const LoginDetails_schema = mongoose.model("LogDetails", LoginDetailsSchema);
+LoginDetailsSchema.method("toJSON", function() {
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+  });
+
+
+
+const LoginDetails_schema = mongoose.model("logins", LoginDetailsSchema);
 module.exports={ LoginDetails_schema}
 

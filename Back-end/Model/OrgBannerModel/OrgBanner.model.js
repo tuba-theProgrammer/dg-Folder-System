@@ -5,6 +5,10 @@ const Organization_BannerSchema=new mongoose.Schema({
         type:String,
         required:true,
     },
+    OrgBannerLogo:{
+        type:String,
+        required:true,
+    },
     OrgBannerTitle:{
         type:String,
         required:true,
@@ -25,13 +29,12 @@ const Organization_BannerSchema=new mongoose.Schema({
         required:true,
     }
 
-
 },{
 
     timestamps:true
 })
 
 
-const OrgBanner_schema = mongoose.model("OrgBanners", Organization_BannerSchema);
+const OrgBanner_schema = mongoose.model("Organization_banner", Organization_BannerSchema);
 module.exports={ OrgBanner_schema}
 

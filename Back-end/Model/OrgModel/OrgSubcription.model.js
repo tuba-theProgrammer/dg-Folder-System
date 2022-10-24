@@ -50,6 +50,6 @@ const Package_SubcriptionSchema=new mongoose.Schema({
 })
 
 
-const Package_and_Subcription_schema = mongoose.model("Package_and_Subcription", Package_SubcriptionSchema);
+const Package_and_Subcription_schema = mongoose.model("organization_subcription", Package_SubcriptionSchema);
 module.exports={ Package_and_Subcription_schema}
 

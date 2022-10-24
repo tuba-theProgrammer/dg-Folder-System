@@ -12,7 +12,7 @@ const OtpSchema=new mongoose.Schema({
     },
 
     Code:{
-        type:Number,
+        type:String,
         required:true
     },
     ExpireIn:{

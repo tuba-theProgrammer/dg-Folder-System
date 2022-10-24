@@ -17,6 +17,6 @@ const PermissionTypeSchema=new mongoose.Schema({
 })
 
 
-const PermissionType_schema = mongoose.model("PermissionTypes", PermissionTypeSchema);
+const PermissionType_schema = mongoose.model("Permission_type", PermissionTypeSchema);
 module.exports={ PermissionType_schema}
 

@@ -5,6 +5,10 @@ const SitesSchema=new mongoose.Schema({
         type:String,
         required:true,
        },
+      Org_Id:{
+        type:String,
+        required:true,
+        },
 
        ownerName:{
         type:String,
@@ -24,11 +28,7 @@ const SitesSchema=new mongoose.Schema({
         required:true,
        },
        
-       Site_StorageLimit:{
-        type:Number,
-        required:true,
-       },
-        
+   
        // admin can enable and disable site
        Site_Status:{
         type:Boolean,
@@ -41,6 +41,13 @@ const SitesSchema=new mongoose.Schema({
 )
 
 
-const Sites_schema = mongoose.model("Sites", SitesSchema);
+SitesSchema.method("toJSON", function() {
+  const { __v, _id, ...object } = this.toObject();
+  object.id = _id;
+  return object;
+});
+
+
+const Sites_schema = mongoose.model("Site", SitesSchema);
 module.exports={ Sites_schema}
 

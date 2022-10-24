@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const RolesSchema=new mongoose.Schema({
    
-    RolesName:{
+    RoleName:{
         type:String,
         required:true,
     },
@@ -15,7 +15,12 @@ const RolesSchema=new mongoose.Schema({
     Roles_TableName:{
         type:String,
         required:true,
-    }
+    },
+
+    RoleType:[{
+       type:Array,
+       default:[]
+    }]
 
 },{
     timestamps:true
