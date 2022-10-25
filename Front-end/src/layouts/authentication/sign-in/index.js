@@ -24,9 +24,9 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 
 // import Login Urls 
-import {LOG_SIGNIN_URL} from '../../../RequestManager/RequestUrls/index.js'
-import {SERVER_URL} from '../../../RequestManager/RequestUrls/generalUrls'
-import {SendRequestToBackend} from '../../../RequestManager/Request-manager'
+import LOG_SIGNIN_URL from '../../../RequestManager/RequestUrls/LoginDetails'
+import SERVER_URL from '../../../RequestManager/RequestUrls/generalUrls'
+import SendRequestToBackend from '../../../RequestManager/Request-manager'
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
@@ -34,7 +34,24 @@ function Basic() {
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   
   function SignInAccount(){
-       const result = SendRequestToBackend("POST",)
+       const requestData={
+        "username":"tubaAsif",
+        "pass":"12345678"
+       }
+
+       const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestData)
+    };
+    fetch(SERVER_URL+LOG_SIGNIN_URL, requestOptions)
+        .then(response => response.json())
+        .then(data => {
+        console.log(data)
+        });
+      //  const result = SendRequestToBackend(SERVER_URL,"POST",LOG_SIGNIN_URL,requestData)
+      //  console.log(result)
+
   }
 
   return (
