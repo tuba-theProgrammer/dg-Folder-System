@@ -1,5 +1,8 @@
 const logSchema = require('../../Model/LoginDetailModel/logins.model')
 const logs = logSchema.LoginDetails_schema
+const FolderSchema = require('../../Model/FolderPermissionModel/Folder_Permission.model')
+const Folder = FolderSchema.FolderPermission_Schema
+const ResponseCodes = require('../../Utils/Responses/ResponseCode')
 
 
 const CreateLoginDetails = async (req,res)=>{
@@ -41,7 +44,12 @@ const LoginAccountGeneral = async(req,res) =>{
     console.log(req.body)
     //  Validate request
     if (!req.body.username) {
-     res.status(400).send({ message: "Content can not be empty!" });
+     res.status(400).send({ 
+      
+      message: "Content can not be empty!",
+      resCode:1004
+    
+    });
      return;
    }
        console.log("Log details req body data ",req.body)
@@ -52,26 +60,36 @@ const LoginAccountGeneral = async(req,res) =>{
        })
          .exec((err, user) => {
            if (err) {
-             res.status(500).send({ message: err });
+             res.status(500).send({ 
+              message: err,
+              resCode:ResponseCodes.ERROR_MESSAGE
+            });
              return;
            }
      
            if (!user) {
-             return res.status(404).send({ message: "Log details Not found." });
+             return res.status(404).send(
+              { message: "Log details Not found.",
+              resCode:ResponseCodes.DATA_NOT_FOUND
+            
+            }
+             
+             );
            }
-
+          console.log(user)
            if(user.LogPass== req.body.pass){
             res.status(200).send({
-                id: user.id,
-                username: user.LogUsermame,
-                pass: user.LogPass,
-                tableName:user.Log_TableName,
-                userId:user.LogUserId
-   
-              });
+              user,
+              message: "login Successfully",
+              resCode:ResponseCodes.LOGIN_SUCCESSFULL
+              }
+              
+              );
            }else{
-            res.status(500).send(
-               "Incorrect Username and pass"
+            res.status(500).send({
+              message: "Incorrect Username and pass",
+              resCode: ResponseCodes.INCORECT_EMAIL_PASS
+            }
               );
            }
           
@@ -93,7 +111,8 @@ const UpdateLoginDetails= async (req,res)=>{
     .then(data => {
       if (!data) {
         res.status(404).send({
-          message: `Cannot update Login Data with id=${LoginData.id}. Maybe LoginDetails was not found!`
+          message: `Cannot update Login Data with id=${LoginData.id}. Maybe LoginDetails was not found!`,
+          
         });
       } else res.status(200).send(
         {
@@ -170,4 +189,34 @@ const UpdateLoginDetailsPass = async (req,res)=>{
 }
 
 
-module.exports = {CreateLoginDetails,LoginAccountGeneral,DeleteLoginDetails,UpdateLoginDetails,UpdateLoginDetailsPass}
+const fetchUserCurrentFolder=async (req,res)=>{
+  const {id} = req.body
+  const LoginData= await logs.findOne({LogUserId:id})
+  console.log(LoginData)
+   Folder.find({_id:LoginData._id}).then(
+    data=>{
+      res.status(200).send({
+        data,
+        message:"Current folder of user found",
+      })
+    }
+   ).catch(
+    err=>{
+      res.status(500).send({
+        message: "Could not Update Login Details pass with id=" + id,
+      
+      });
+    }
+   )
+  
+
+}
+
+
+module.exports = {
+  CreateLoginDetails,
+  LoginAccountGeneral,
+  DeleteLoginDetails,
+  UpdateLoginDetails,
+  UpdateLoginDetailsPass
+}

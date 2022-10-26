@@ -4,7 +4,7 @@ const Otp_schema = require('../../Model/OtpModel/Otp.model')
 const OTP = Otp_schema.Otp_schema
 const { generateOTP } = require('../../Utils/Services/Otp')
 const { sendMail } = require('../../Utils/Services/Mail')
-
+const ResponseCode = require('../../Utils/Responses/ResponseCode')
 
 
 const SiteLogin=async (req,res)=>{
@@ -23,7 +23,10 @@ const SiteLogin=async (req,res)=>{
        })
          .exec((err, user) => {
            if (err) {
-             res.status(500).send({ message: err });
+             res.status(500).send({ 
+              message: err,
+              resCode: ResponseCode.ERROR_MESSAGE
+            });
              return;
            }
      
@@ -33,14 +36,15 @@ const SiteLogin=async (req,res)=>{
 
            if(user.SitePass== req.body.pass){
             res.status(200).send({
-              id: user.id,
-              username: user.SiteUsername,
-              pass:user.SitePass,
-              email: user.ownerEmail,
+              data,
+              message: "Site Account login Successfully",
+              resCode:ResponseCode.LOGIN_SUCCESSFULL
             });
            }else{
-            res.status(500).send(
-               "Incorrect Username and pass"
+            res.status(500).send({
+               message:"Incorrect Username and pass",
+               resCode: ResponseCode.INCORECT_EMAIL_PASS
+            }
               );
            }
          
@@ -55,7 +59,11 @@ const CreateSiteAccount= async (req,res)=>{
    
         const {DisplayName,Username,UserPass,UserEmail,OrgId,OwnerName} = req.body;
         if (!req.body.Username) {
-            res.status(400).send({ message: "Content can not be empty!" });
+            res.status(400).send({
+              
+              message: "Content can not be empty!",
+              resCode: ResponseCode.CONTENT_NOT_FOUND
+          });
             return;
           }
             console.log("create site req body data ",req.body)
@@ -75,7 +83,9 @@ const CreateSiteAccount= async (req,res)=>{
                     console.log(data)
              
              res.status(200).send({
-            data
+            data,
+            message: "Site Account Created Successfully",
+            resCode:ResponseCode.ACCOUNT_CREATED_SUCCESSFULLY
              }
              )
     
@@ -83,7 +93,8 @@ const CreateSiteAccount= async (req,res)=>{
             .catch(err => {
               res.status(500).send({
                 message:
-                  err.message || "Some error occurred while creating the Site."
+                  err.message || "Some error occurred while creating the Site.",
+                  resCode:ResponseCode.ERROR_MESSAGE
               });
             });
       

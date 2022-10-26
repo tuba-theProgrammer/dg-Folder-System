@@ -4,7 +4,7 @@ const SendRequestToBackend = (Server_url,requestType, requestRoute, requestData)
    const Getdata =  fetch(Server_url+requestRoute)
     .then(response => response.json())
     .then(data => {
-        console.log(data)
+     //   console.log(data)
             return data
     });
       return Getdata
@@ -18,7 +18,8 @@ const SendRequestToBackend = (Server_url,requestType, requestRoute, requestData)
   const PostData=  fetch(Server_url+requestRoute, requestOptions)
         .then(response => response.json())
         .then(data => {
-   console.log(data)
+  // console.log("here is response data ",data)
+   return data
         });
 
       return PostData
@@ -27,4 +28,4 @@ const SendRequestToBackend = (Server_url,requestType, requestRoute, requestData)
 }
 
 
-export default {SendRequestToBackend}
+export {SendRequestToBackend}

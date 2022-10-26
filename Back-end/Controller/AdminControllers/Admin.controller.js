@@ -4,7 +4,7 @@ const Otp_schema = require('../../Model/OtpModel/Otp.model')
 const OTP = Otp_schema.Otp_schema
 const { generateOTP } = require('../../Utils/Services/Otp')
 const { sendMail } = require('../../Utils/Services/Mail')
-
+const ResponseCode = require('../../Utils/Responses/ResponseCode')
 
 const createSuperAdmin = async (req,res)=>{
    
@@ -23,12 +23,17 @@ const createSuperAdmin = async (req,res)=>{
 
 admin.save(admin)
   .then(data => {
-    res.send(data);
+    res.status(200).send({
+      data,
+      message:"Admin account created Successfully",
+      resCode: ResponseCode.ACCOUNT_CREATED_SUCCESSFULLY
+    });
   })
   .catch(err => {
     res.status(500).send({
       message:
-        err.message || "Some error occurred while creating the Admin."
+        err.message || "Some error occurred while creating the Admin.",
+        resCode: ResponseCode.ERROR_MESSAGE
     });
   });
    
@@ -51,7 +56,10 @@ const AdminSignIn= async (req,res)=>{
       })
         .exec((err, user) => {
           if (err) {
-            res.status(500).send({ message: err });
+            res.status(500).send({ 
+              message: err,
+              resCode: ResponseCode.ERROR_MESSAGE
+            });
             return;
           }
     
@@ -62,14 +70,17 @@ const AdminSignIn= async (req,res)=>{
 
           if(user.AdminPass== req.body.pass){
             res.status(200).send({
-                id: user._id,
-                username: user.AdminUsername,
-                email: user.AdminEmail,
-                image: user.AdminProfileImage
+               user,
+                message:"Admin account Login Successfully",
+                resCode:ResponseCode.LOGIN_SUCCESSFULL
+              
               });
           }else{
-            res.status(500).send(
-                "Incorrect Username and pass"
+            res.status(500).send({
+                 
+              message:"Incorrect Username and pass",
+              resCode: ResponseCode.INCORECT_EMAIL_PASS
+            }
                );
           }
           

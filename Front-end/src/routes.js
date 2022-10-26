@@ -5,7 +5,8 @@
 // import Notifications from "layouts/notifications";
 // import Profile from "layouts/profile";
 import SignIn from "layouts/authentication/sign-in";
-import SignUp from "layouts/authentication/sign-up";
+import CreateUserStep1 from "layouts/authentication/CreateUser-Step1";
+import CreateUserStep2 from "layouts/authentication/CreateUser-Step2";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -22,11 +23,20 @@ const routes = [
   },
   {
     type: "collapse",
-    name: "Sign Up",
-    key: "sign-up",
+    name: "Create User Step1",
+    key: "sign-up1",
     icon: <Icon fontSize="small">assignment</Icon>,
-    route: "/authentication/sign-up",
-    component: <SignUp />,
+    //route: "/authentication/sign-up",
+    route: "/",
+    component: <CreateUserStep1 />,
+  },
+  {
+    type: "collapse",
+    name: "Create User step2",
+    key: "sign-up2",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/step2",
+    component: <CreateUserStep2 />,
   },
 ];
 

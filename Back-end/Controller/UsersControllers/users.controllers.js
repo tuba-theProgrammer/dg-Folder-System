@@ -4,17 +4,23 @@ const Otp_schema = require('../../Model/OtpModel/Otp.model')
 const OTP = Otp_schema.Otp_schema
 const { generateOTP } = require('../../Utils/Services/Otp')
 const { sendMail } = require('../../Utils/Services/Mail')
+const ResponseCode = require('../../Utils/Responses/ResponseCode')
+
 
 const CreateUser= async(req,res)=>{
 
     const {UserEmail,UserDisplayName,Org_ID,Site_ID,Folder_Permission_ID,Role_ID,UserName,UserPass,created_by_ID,Created_By} = req.body;
     if (!req.body.UserName) {
-        res.status(400).send({ message: "Content can not be empty!" });
+        res.status(400).send({
+          
+          message: "Content can not be empty!",
+          resCode:ResponseCode.CONTENT_NOT_FOUND
+        });
         return;
       }
         console.log("create User req body data ",req.body)
        
-    const Response ={}
+
             const user= new User({
                UserEmail,
                UserDisplayName,
@@ -31,11 +37,11 @@ const CreateUser= async(req,res)=>{
           // save User into database   
       user.save(user)
         .then(data => {
-          Response.UserResponse = data
-          console.log(data)
          
          res.status(200).send({
-           Response
+           data,
+           message:"User Account Created Successfully",
+           resCode:ResponseCode.ACCOUNT_CREATED_SUCCESSFULLY
          }
          )
 
@@ -43,7 +49,8 @@ const CreateUser= async(req,res)=>{
         .catch(err => {
           res.status(500).send({
             message:
-              err.message || "Some error occurred while creating the User."
+              err.message || "Some error occurred while creating the User.",
+              resCode:ResponseCode.ERROR_MESSAGE
           });
         });
   
@@ -55,7 +62,10 @@ const LoginUser = async(req,res)=>{
     console.log("User req body ", req.body)
   //  Validate request
   if (!req.body.username) {
-   res.status(400).send({ message: "Content can not be empty!" });
+   res.status(400).send({ 
+    message: "Content can not be empty!",
+    resCode: ResponseCode.CONTENT_NOT_FOUND
+   });
    return;
  }
      console.log("User req body data ",req.body)
@@ -71,19 +81,25 @@ const LoginUser = async(req,res)=>{
          }
    
          if (!user) {
-           return res.status(404).send({ message: "User Not found." });
+           return res.status(404).send({ 
+            message: "User Not found.",
+            resCode:ResponseCode.DATA_NOT_FOUND
+          });
          }
 
          if(user.UserPass== req.body.pass){
           res.status(200).send({
-            id: user.id,
-            username: user.UserName,
-            pass:user.UserPass,
-            email: user.UserEmail,
+                user,
+                message:"User account login Successfully",
+                resCode: ResponseCode.LOGIN_SUCCESSFULL
+
           });
          }else{
-          res.status(500).send(
-             "Incorrect Username and pass"
+          res.status(500).send({
+            message: "Incorrect Username and pass",
+            resCode:ResponseCode.INCORECT_EMAIL_PASS,
+
+          }
             );
          }
        

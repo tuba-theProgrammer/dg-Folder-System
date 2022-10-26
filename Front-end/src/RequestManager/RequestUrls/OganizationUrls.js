@@ -1,0 +1,22 @@
+const API="/OrgApi"
+const LOGIN_ORG_URL=API+"/LoginOrg"
+const ORG_CREATE_ACCOUNT_URL=  API+"/CreateOrg"
+const ORG_CHANGE_PASS_URL=  API+"/OrgChangePass"
+const ORG_RESET_PASS_URL=   API+"/OrgResetPass"
+const LOGOUT_ORG_URL=API+"/logOutOrg"
+const VIEW_ORG_PROFILE_URL=   API+"/viewOrgProfile"
+const DELETE_ORG_ACCOUNT = API +"/OrgDlt"
+const UPDATE_ORG_PROFILE = API +"/updateOrgProfile"
+const VIEW_ALL_ORG = API +"/DisplayAllOrg"
+
+export {
+ LOGIN_ORG_URL,
+ ORG_CHANGE_PASS_URL,
+ ORG_CREATE_ACCOUNT_URL,
+ ORG_RESET_PASS_URL,
+ LOGOUT_ORG_URL,
+ VIEW_ALL_ORG,
+ VIEW_ORG_PROFILE_URL,
+ DELETE_ORG_ACCOUNT,
+ UPDATE_ORG_PROFILE
+}

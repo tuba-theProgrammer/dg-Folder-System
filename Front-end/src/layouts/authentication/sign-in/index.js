@@ -24,35 +24,114 @@ import bgImage from "assets/images/bg-sign-in-basic.jpeg";
 
 
 // import Login Urls 
-import LOG_SIGNIN_URL from '../../../RequestManager/RequestUrls/LoginDetails'
-import SERVER_URL from '../../../RequestManager/RequestUrls/generalUrls'
-import SendRequestToBackend from '../../../RequestManager/Request-manager'
+import {LOG_SIGNIN_URL} from '../../../RequestManager/RequestUrls/LoginDetails'
+import {SERVER_URL} from '../../../RequestManager/RequestUrls/generalUrls'
+import {SendRequestToBackend} from '../../../RequestManager/Request-manager'
+import { LOGIN_ADMIN_URL } from "RequestManager/RequestUrls/AdminUrls";
+import { LOGIN_ORG_URL } from "RequestManager/RequestUrls/OganizationUrls";
+import { LOGIN_SITE_URL } from "RequestManager/RequestUrls/SiteUrls";
+import { LOGIN_USER_URL } from "RequestManager/RequestUrls/UsersUrls";
+import {
+  DATA_NOT_FOUND,
+  CONTENT_NOT_FOUND,
+  ERROR_MESSAGE,
+  INCORECT_EMAIL_PASS,
+  LOGIN_SUCCESSFULL
+}from '../../../RequestManager/RequestCode'
 
 function Basic() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
-  
-  function SignInAccount(){
-       const requestData={
-        "username":"tubaAsif",
-        "pass":"12345678"
+  const [getEmail,setEmail] = useState('Email')
+  const [getPass,setPass] = useState('Pass')
+  const [getResponseData,setResponseData] = useState('data')
+
+ function SignInAccount(){
+    
+          const requestData={
+        "username":getEmail,
+        "pass":getPass
        }
+       const result = SendRequestToBackend(SERVER_URL,"POST",LOG_SIGNIN_URL,requestData)
+       result.then(
+        data=>{
+          setResponseData(data)
+        }
+       )
 
-       const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestData)
-    };
-    fetch(SERVER_URL+LOG_SIGNIN_URL, requestOptions)
-        .then(response => response.json())
-        .then(data => {
-        console.log(data)
-        });
-      //  const result = SendRequestToBackend(SERVER_URL,"POST",LOG_SIGNIN_URL,requestData)
-      //  console.log(result)
+      if(getResponseData.message){
+        alert(getResponseData.message)
+      }else{
+        alert("please enter Data First")
+      }
 
+      if(getResponseData.resCode == DATA_NOT_FOUND){
+             
+
+      }else if(getResponseData.resCode ==LOGIN_SUCCESSFULL){
+          
+           const loginDetailsData = getResponseData.user
+           if(loginDetailsData.Log_TableName=="Admin"){
+             
+            const result = SendRequestToBackend(SERVER_URL,"POST",LOGIN_ADMIN_URL,requestData)
+            result.then(
+             data=>{
+               console.log(data)
+             }
+            )
+           }
+           else if(loginDetailsData.Log_TableName=="organization"){
+            const result = SendRequestToBackend(SERVER_URL,"POST",LOGIN_ORG_URL,requestData)
+            result.then(
+             data=>{
+               console.log(data)
+             }
+            )
+           }
+           else if(loginDetailsData.Log_TableName=="user"){
+            const result = SendRequestToBackend(SERVER_URL,"POST",LOGIN_USER_URL,requestData)
+            result.then(
+             data=>{
+               console.log(data)
+             }
+            )
+           }
+           else if(loginDetailsData.Log_TableName=="site"){
+            const result = SendRequestToBackend(SERVER_URL,"POST",LOGIN_SITE_URL,requestData)
+            result.then(
+             data=>{
+               console.log(data)
+             }
+            )
+            
+          }
+
+      }else if(getResponseData.resCode ==CONTENT_NOT_FOUND){
+
+      }
+      else if(getResponseData.resCode ==ERROR_MESSAGE){
+       
+      }
+      else if(getResponseData.resCode == INCORECT_EMAIL_PASS){
+
+      }
+ 
+     
+      
+  }   
+   
+  const PassOnchange=(e)=>{
+        console.log(e.target.value)
+        setPass(e.target.value)
   }
+  
+  const EmailOnchange = (e)=>{
+    console.log(e.target.value)
+    setEmail(e.target.value)
+
+  } 
+
 
   return (
     <BasicLayout image={bgImage}>
@@ -78,10 +157,10 @@ function Basic() {
         <MDBox pt={4} pb={3} px={3}>
           <MDBox component="form" role="form">
             <MDBox mb={2}>
-              <MDInput type="email" label="Email" fullWidth />
+              <MDInput type="email" label="Email" fullWidth onChange={EmailOnchange}/>
             </MDBox>
             <MDBox mb={2}>
-              <MDInput type="password" label="Password" fullWidth />
+              <MDInput type="password" label="Password" fullWidth onChange={PassOnchange}/>
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
               <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -102,21 +181,7 @@ function Basic() {
                 sign in
               </MDButton>
             </MDBox>
-            <MDBox mt={3} mb={1} textAlign="center">
-              <MDTypography variant="button" color="text">
-                Don&apos;t have an account?{" "}
-                <MDTypography
-                  component={Link}
-                  to="/authentication/sign-up"
-                  variant="button"
-                  color="info"
-                  fontWeight="medium"
-                  textGradient
-                >
-                  Sign up
-                </MDTypography>
-              </MDTypography>
-            </MDBox>
+         
           </MDBox>
         </MDBox>
       </Card>

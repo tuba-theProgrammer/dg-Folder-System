@@ -1,0 +1,21 @@
+const API="/SiteApi"
+const LOGIN_SITE_URL=API+"/LoginSite"
+const SITE_CREATE_ACCOUNT_URL=  API+"/CreateSite"
+const SITE_CHANGE_PASS_URL=  API+"/SiteChangePass"
+const SITE_RESET_PASS_URL=   API+"/SiteResetPass"
+//const LOGOUT_SITE_URL=API+"/logOutUser"
+const VIEW_SITE_PROFILE_URL=   API+"/viewSiteProfile"
+const DELETE_SITE_ACCOUNT = API +"/SiteDlt"
+const UPDATE_SITE_PROFILE = API +"/updateSiteProfile"
+const VIEW_ALL_SITE = API +"/DisplayAllSite"
+
+export {
+  LOGIN_SITE_URL,
+  SITE_CHANGE_PASS_URL,
+  SITE_CREATE_ACCOUNT_URL,
+  SITE_RESET_PASS_URL,
+  VIEW_SITE_PROFILE_URL,
+  DELETE_SITE_ACCOUNT,
+  UPDATE_SITE_PROFILE,
+  VIEW_ALL_SITE
+}
