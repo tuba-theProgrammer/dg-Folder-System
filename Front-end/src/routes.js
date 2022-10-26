@@ -8,6 +8,7 @@ import SignIn from "layouts/authentication/sign-in";
 import CreateUserStep1 from "layouts/authentication/CreateUser-Step1";
 import CreateUserStep2 from "layouts/authentication/CreateUser-Step2";
 
+import Profile from 'layouts/Profile/ManageProfile'
 // @mui icons
 import Icon from "@mui/material/Icon";
 
@@ -38,6 +39,19 @@ const routes = [
     route: "/step2",
     component: <CreateUserStep2 />,
   },
+
+
+  {
+    type: "collapse",
+    name: "Dashboard",
+    key: "dashboard",
+    icon: <Icon fontSize="small">assignment</Icon>,
+    route: "/profile",
+    component: <Profile />,
+
+  },
+
+ 
 ];
 
 export default routes;

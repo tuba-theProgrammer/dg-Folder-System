@@ -134,11 +134,6 @@ const ConfirmPassOnChange = (e)=>{
                 Back
               </MDButton>
               <MDButton sx={{ m: '1rem' }}  variant="gradient" color="info" fullWidth 
-              // component={Link}
-              // to={{
-              //   pathname: "/step2",
-              //   state: getData
-              // }}
               
               onClick={
                    NextStepCall
