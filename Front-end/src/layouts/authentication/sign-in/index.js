@@ -72,6 +72,9 @@ function Basic() {
       }else if(getResponseData.resCode ==LOGIN_SUCCESSFULL){
           
            const loginDetailsData = getResponseData.user
+           console.log(loginDetailsData)
+           localStorage.setItem("Folder_ID",loginDetailsData.Folder_ID)
+           localStorage.setItem("User_ID",loginDetailsData.LogUserId)
            if(loginDetailsData.Log_TableName=="Admin"){
              
             const result = SendRequestToBackend(SERVER_URL,"POST",LOGIN_ADMIN_URL,requestData)

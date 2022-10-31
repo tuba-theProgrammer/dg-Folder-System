@@ -44,7 +44,8 @@ function Basic() {
 
 
       const UpdateProfile = ()=>{
-
+           // fetch call to get Data of current user in profile
+           
       }
 
 

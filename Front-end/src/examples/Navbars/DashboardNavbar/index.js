@@ -1,17 +1,4 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 import { useState, useEffect } from "react";
 
@@ -27,10 +14,12 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import Icon from "@mui/material/Icon";
+import { Divider } from "@mui/material";
 
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDInput from "components/MDInput";
+import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 React example components
 import Breadcrumbs from "examples/Breadcrumbs";
@@ -49,15 +38,14 @@ import {
 import {
   useMaterialUIController,
   setTransparentNavbar,
-  setMiniSidenav,
-  setOpenConfigurator,
 } from "context";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
   const [controller, dispatch] = useMaterialUIController();
-  const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
-  const [openMenu, setOpenMenu] = useState(false);
+  const { miniSidenav, transparentNavbar, fixedNavbar, darkMode } = controller;
+  const [openHelpMenu, setOpenHelpMenu] = useState(false);
+  const [openSettingMenu, setOpenSettingMenu] = useState(false);
   const route = useLocation().pathname.split("/").slice(1);
 
   useEffect(() => {
@@ -86,28 +74,32 @@ function DashboardNavbar({ absolute, light, isMini }) {
     return () => window.removeEventListener("scroll", handleTransparentNavbar);
   }, [dispatch, fixedNavbar]);
 
-  const handleMiniSidenav = () => setMiniSidenav(dispatch, !miniSidenav);
-  const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
-  const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
-  const handleCloseMenu = () => setOpenMenu(false);
+ 
 
-  // Render the notifications menu
-  const renderMenu = () => (
+  const handleOpenHelpMenu = (event) => setOpenHelpMenu(event.currentTarget);
+  const handleCloseHelpMenu = () => setOpenHelpMenu(false);
+
+
+  const handleOpenSettingMenu = (event) => setOpenSettingMenu(event.currentTarget);
+  const handleCloseSettingMenu = () => setOpenSettingMenu(false);
+
+
+  // Render the Help menu
+  const renderHelpMenu = () => (
     <Menu
-      anchorEl={openMenu}
+      anchorEl={openHelpMenu}
       anchorReference={null}
       anchorOrigin={{
         vertical: "bottom",
         horizontal: "left",
       }}
-      open={Boolean(openMenu)}
-      onClose={handleCloseMenu}
+      open={Boolean(openHelpMenu)}
+      onClose={handleCloseHelpMenu}
       sx={{ mt: 2 }}
     >
-      <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
-      <NotificationItem icon={<Icon>podcasts</Icon>} title="Manage Podcast sessions" />
-      <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" />
-    </Menu>
+      <NotificationItem icon={<Icon>contacts</Icon>} title="Contact Support" />
+      <NotificationItem icon={<Icon>help</Icon>} title="Help Docs" />
+       </Menu>
   );
 
   // Styles for the navbar icons
@@ -122,6 +114,39 @@ function DashboardNavbar({ absolute, light, isMini }) {
       return colorValue;
     },
   });
+
+
+
+
+  // Render Setting Menu
+
+   const renderSettingsMenu = () => (
+    <Menu
+      anchorEl={openSettingMenu}
+      anchorReference={null}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      open={Boolean(openSettingMenu)}
+      onClose={handleCloseSettingMenu}
+      sx={{ mt: 2 }}
+    >
+      <NotificationItem icon={<Icon>tasks</Icon>} title="System Task" />
+      <NotificationItem icon={<Icon>storage</Icon>} title="Your Storage" />
+      <Divider />
+      {/* here get the storage from login details and place it here */}
+      <MDTypography 
+                fontWeight="regular"
+                align="center"
+                color="text">7.35 MB/50 GB</MDTypography>
+   
+       </Menu>
+  );
+
+
+
+
 
   return (
     <AppBar
@@ -139,7 +164,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
               <MDInput label="Search here" />
             </MDBox>
             <MDBox color={light ? "white" : "inherit"}>
-              <Link to="/authentication/sign-in/basic">
+              <Link to="/profile">
                 <IconButton sx={navbarIconButton} size="small" disableRipple>
                   <Icon sx={iconsStyle}>account_circle</Icon>
                 </IconButton>
@@ -149,7 +174,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 disableRipple
                 color="inherit"
                 sx={navbarMobileMenu}
-                onClick={handleMiniSidenav}
+                
               >
                 <Icon sx={iconsStyle} fontSize="medium">
                   {miniSidenav ? "menu_open" : "menu"}
@@ -160,10 +185,11 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 disableRipple
                 color="inherit"
                 sx={navbarIconButton}
-                onClick={handleConfiguratorOpen}
+                onClick={handleOpenSettingMenu}
               >
                 <Icon sx={iconsStyle}>settings</Icon>
               </IconButton>
+              {renderSettingsMenu()}
               <IconButton
                 size="small"
                 disableRipple
@@ -172,11 +198,11 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 aria-controls="notification-menu"
                 aria-haspopup="true"
                 variant="contained"
-                onClick={handleOpenMenu}
+                onClick={handleOpenHelpMenu}
               >
-                <Icon sx={iconsStyle}>notifications</Icon>
+                <Icon sx={iconsStyle}>help</Icon>
               </IconButton>
-              {renderMenu()}
+              {renderHelpMenu()}
             </MDBox>
           </MDBox>
         )}
