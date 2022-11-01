@@ -61,6 +61,12 @@ const DeleteRoles = async (req,res)=>{
     const {id} = req.body;
     console.log(id)
   
+
+    if (!req.body.id) {
+      res.status(400).send({ message: "Role Id required to delete data" });
+      return;
+    }
+
     Role.findByIdAndRemove(id)
       .then(data => {
         if (!data) {
@@ -88,7 +94,6 @@ const UpdateRoles = async(req,res)=>{
     ).then(data=>{
       res.status(200).send({
         message:" Roles updated successfully",
-        data
 
       });
            console.log("Roles permission Data ",data)
